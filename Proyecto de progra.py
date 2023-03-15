@@ -32,15 +32,18 @@ def usuarioNuevo():
     
     
 
-
-
-
-
-
-
-
-
 #----------PROGRAMA PRINCIPAL-------------
 print("Bienvenido a nuestro banco, que desea?")
 menu=input("1-Registrar Usuario nuevo\n2-Usuario Registrado\n3-Configuracion Avanzada\n4-Salir\n")
-print(usuarioNuevo())
+while True:
+    if menu==1:
+       usuarioNuevo()
+    elif menu==2:
+         print()
+    elif menu==3:
+         print
+    elif menu==4:
+        print("Gracias por preferirnos")
+
+    else:
+        print("Opcion incorrecta intente de nuevo")
