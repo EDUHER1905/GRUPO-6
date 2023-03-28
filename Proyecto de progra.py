@@ -1,4 +1,11 @@
+import os
 import getpass
+
+file=open("usuarios.txt","a")
+file.write("segundo texto \n")
+file.write("escrito en python\n")
+file.close()
+
 def usuarioNuevo():
     intentos=0
     max_intentos=3
@@ -30,7 +37,16 @@ def usuarioNuevo():
         else:
             print("El PIN no es igual,Intente de nuevo")
     
-    
+def usuarioregistrado():
+    file=open("usuarios.txt","a")
+    file.write(str(usuarioNuevo()))
+    file.write("\n")
+    file.close()
+
+    import os 
+    file=open("usuario.txt","r")
+    mensaje=file.read()
+    print(mensaje)
 
 #----------PROGRAMA PRINCIPAL-------------
 print("Bienvenido a nuestro banco, que desea?")
@@ -39,9 +55,9 @@ while True:
     if menu==1:
        usuarioNuevo()
     elif menu==2:
-         print()
+         usuarioregistrado()
     elif menu==3:
-         print
+         print("3")
     elif menu==4:
         print("Gracias por preferirnos")
 
