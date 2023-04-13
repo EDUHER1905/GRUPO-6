@@ -1,5 +1,5 @@
 import getpass
-#Registro de usuario
+registroUsuario="Registrar usuarios.txt","a+"
 def usuarioNuevo():
     file=open("Registrar usuarios.txt","a+")
     intentos=0
@@ -69,22 +69,45 @@ def usuarioNuevo():
                         print("Monto equivocado,no cumple con el minimo de 100 000 Colones")
                 break
             break
-    file.write("Cedula: {}\nNombre: {}\n ".format(cedula,nombre,))
+    file.write("Cedula: {} , Nombre: {} ".format(cedula,nombre,))
     file.close()
 
     
+def usuarioRegistrado():
+    with open("Registrar usuarios.txt", "r") as file:
+
+    
+        datosUsuario=file.readlines()
+        datosUsuario= [dato.strip() for dato in datosUsuario]
+        datos = []
+        for dato in datosUsuario:
+            datos.append(dato)
+        
+    file.close()
+    print(datos)
+    
     
 
-def usuarioRegistrado():
-    opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir"))
+def configAvanzada():
     while True:
-        if opcion=="1":
-            cuentasDisponibles=input("1-Colones\n2-Dolares\n3-Bitcoin\n")
-            montoRetirar=input("Cuanto dinero quiere retirar:\n")
-
-
-
-
+        pin=getpass.getpass("Ingrese el PIN que desea para su cuenta bancaria:\n")
+        if len(pin)==4:
+            print("PIN valido")
+            break
+        
+        else:
+            print("Su PIN debe de ser de 4 digitos,intente de nuevo")
+    print("Ingrese nuevamente el PIN para auntenticar")
+    while True:
+        aunte_Pin=getpass.getpass("Ingrese el PIN para auntenticar:\n")
+        if aunte_Pin==pin:
+            print("Se auntentico correctamente")
+            break
+        else:
+            print("El PIN no es igual,Intente de nuevo")
+    opcion=input("1-Eliminar usuario\n2-Modificar tipos de cambio\n3-salir\n")
+    
+        
 
 #----------PROGRAMA PRINCIPAL-------------
 print("Bienvenido a nuestro banco, que desea?")
@@ -99,8 +122,8 @@ while True:
     elif menu=="4":
         print("Gracias por preferirnos")
         break
-
     else:
         print("Opcion incorrecta intente de nuevo")
+
 
     
