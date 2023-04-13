@@ -1,0 +1,4 @@
+Cedula: 123456789
+Nombre: sebas
+Cedula: 234567899
+Nombre: laura
