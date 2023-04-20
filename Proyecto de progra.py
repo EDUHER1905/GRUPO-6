@@ -71,23 +71,38 @@ def usuarioNuevo():
             break
     file.write("Cedula: {} , Nombre: {} , saldo: {} ".format(cedula,nombre,colones))
     file.close()
+
+
+def usuarioRegistrado():
+    
+    with open("Registrar usuarios.txt", "r") as file:
+
+    
+        datosUsuario=file.readlines()
+        datosUsuario= [dato.strip() for dato in datosUsuario]
+        cuentas = []
+
+        for dato in datosUsuario:
+            cuentas.append(dato)     
+    file.close()
+    print(cuentas)
     
 cuentas = [
-    {'nombre': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
-    {'nombre': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
-    {'nombre': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+    {'cedula': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+    {'cedula': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
+    {'cedula': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
 ]
 
 def cuentasDisponibles():
     print("Cuentas disponibles:")
     for i, cuenta in enumerate(cuentas):
-        print(f"{i+1}. {cuenta['nombre']} ({cuenta['moneda']})")
+        print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
 
 
     opcion = int(input("¿De cual cuenta desea retirar dinero? "))
     cuenta = cuentas[opcion-1]
 
-    print(f"El saldo actual de la cuenta {cuenta['nombre']} es {cuenta['saldo']} {cuenta['moneda']}")
+    print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
     monto = float(input("¿Cuanto dinero desea retirar? "))
 
     for i in range(3):
@@ -96,27 +111,23 @@ def cuentasDisponibles():
             monto = float(input(f"Intente de nuevo ({i+1}/3): "))
         else:
             cuenta['saldo'] -= monto
-            print(f"Se retiraron {monto} {cuenta['moneda']} de la cuenta {cuenta['nombre']}.")
+            print(f"Se retiraron {monto} {cuenta['moneda']} de la cuenta {cuenta['cedula']}.")
             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
             break
     else:
         print("Ha excedido el número máximo de intentos. Regresando al menú principal...")
-        # actualizar los saldos de las cuentas en los archivos correspondientes
+
+def verSaldo():
+    for i, cuenta in enumerate(cuentas):
+        print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
+    opcion = int(input("¿ cual cuenta desea ver? "))
+    cuenta = cuentas[opcion-1]
+    print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
+        
 
 
     
-def usuarioRegistrado():
-    #Pasar la informacion del archivo al arreglo
-    with open("Registrar usuarios.txt", "r") as file:
 
-    
-        datosUsuario=file.readlines()
-        datosUsuario= [dato.strip() for dato in datosUsuario]
-        datos = []
-        for dato in datosUsuario:
-            datos.append(dato)     
-    file.close()
-    print(datos)
 
 
 
@@ -126,27 +137,7 @@ def usuarioRegistrado():
 
 
 
-    opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir\n"))
-    while True:
-        if opcion=="1":
-            cuentasDisponibles()
-        elif opcion=="2":
-            print("deposito")
-        elif opcion=="3":
-            file=open("Registrar usuarios.txt","r")
-            mensaje=file.read()
-            file.close()
-            print("saldo actual")
-        elif opcion=="4":
-            print("pagar servicios")
-        elif opcion=="5":
-            print("compra")
-        elif opcion=="6":
-            print("eliminar usuario")
-        elif opcion=="7":
-            print("ha salido del sistema")
-            break
-        break
+    
 
     
     
@@ -197,9 +188,26 @@ print("Bienvenido a nuestro banco, que desea?")
 menu=input("1-Registrar Usuario nuevo\n2-Usuario Registrado\n3-Configuracion Avanzada\n4-Salir\n")
 while True:
     if menu=="1":
-       usuarioNuevo()   
+        usuarioNuevo()   
     elif menu=="2":
-         usuarioRegistrado()
+        opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir\n"))
+        while True:
+            if opcion=="1":
+                cuentasDisponibles()
+            elif opcion=="2":
+                print("deposito")
+            elif opcion=="3":
+                verSaldo()
+            elif opcion=="4":
+                print("pagar servicios")
+            elif opcion=="5":
+                print("compra")
+            elif opcion=="6":
+                print("eliminar usuario")
+            elif opcion=="7":
+                print("ha salido del sistema")
+                break
+            break 
     elif menu=="3":
          configAvanzada()
     elif menu=="4":
