@@ -124,7 +124,22 @@ def verSaldo():
     cuenta = cuentas[opcion-1]
     print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
         
-
+def eliminarUsuario():
+    while True:
+        pin=getpass.getpass("Ingrese el PIN de su cuenta bancaria:\n")
+        if len(pin)==4:
+            print("PIN valido")
+            break
+        
+        else:
+            print("Su PIN debe de ser de 4 digitos,intente de nuevo")
+    print("Ingrese nuevamente el PIN para confirmar la eliminacion de usuario")
+    
+    aunte_Pin=getpass.getpass("Ingrese el PIN para auntenticar:\n")
+    if aunte_Pin==pin:
+        print("Usuario eliminado")     
+    else:
+        print("El PIN no es igual,No se puede eliminar el usuario")
 
     
 
@@ -154,7 +169,7 @@ def configAvanzada():
     intentos=0
     
     while True:
-        pin=getpass.getpass("Ingrese el PIN que desea para su cuenta bancaria:\n")
+        pin=getpass.getpass("Ingrese el PIN de su cuenta bancaria:\n")
         if len(pin)==4:
             print("PIN valido")
             break
@@ -203,7 +218,7 @@ while True:
             elif opcion=="5":
                 print("compra")
             elif opcion=="6":
-                print("eliminar usuario")
+                eliminarUsuario()
             elif opcion=="7":
                 print("ha salido del sistema")
                 break
