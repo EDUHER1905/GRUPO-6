@@ -69,7 +69,7 @@ def usuarioNuevo():
                         print("Monto equivocado,no cumple con el minimo de 100 000 Colones")
                 break
             break
-    file.write("Cedula: {} , Nombre: {} , saldo: {} ".format(cedula,nombre,colones))
+    file.write("Cedula: {} , Nombre: {} , saldo: {} \n".format(cedula,nombre,colones))
     file.close()
 
 
@@ -83,7 +83,8 @@ def usuarioRegistrado():
         cuentas = []
 
         for dato in datosUsuario:
-            cuentas.append(dato)     
+            cuentas.append(dato)
+    
     file.close()
     print(cuentas)
     
@@ -93,8 +94,8 @@ cuentas = [
     {'cedula': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
 ]
 
-def cuentasDisponibles():
-    print("Cuentas disponibles:")
+def retirarDinero():
+    
     for i, cuenta in enumerate(cuentas):
         print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
 
@@ -124,7 +125,24 @@ def verSaldo():
     cuenta = cuentas[opcion-1]
     print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
         
-def eliminarUsuario():
+
+   
+
+
+    with open("Registrar usuarios.txt", "r") as file:
+
+    
+        datosUsuario=file.readlines()
+        datosUsuario= [dato.strip() for dato in datosUsuario]
+        
+
+        
+       
+        file.close()
+        print("datos usuarios")
+        print(datosUsuario)    
+ 
+def pinEliminar():
     while True:
         pin=getpass.getpass("Ingrese el PIN de su cuenta bancaria:\n")
         if len(pin)==4:
@@ -134,37 +152,69 @@ def eliminarUsuario():
         else:
             print("Su PIN debe de ser de 4 digitos,intente de nuevo")
     print("Ingrese nuevamente el PIN para confirmar la eliminacion de usuario")
-    
-    aunte_Pin=getpass.getpass("Ingrese el PIN para auntenticar:\n")
-    if aunte_Pin==pin:
-        print("Usuario eliminado")     
-    else:
-        print("El PIN no es igual,No se puede eliminar el usuario")
-
-    
-
-
-
-
-
-
-
-
-
-
-    
-
-    
-    
-        
-
-
-
-        
    
+    while True:
+        aunte_Pin=getpass.getpass("Ingrese el PIN para auntenticar:\n")
+        if aunte_Pin==pin:
+            print("Se auntentico correctamente")
+            break
+        else:
+            print("El PIN no es igual,Intente de nuevo")
+    
+    
+def divisas():
+    
+    opcion=input("¿Qué operación desea realizar?\n1. Compra de colones\n2. Venta de colones\n3. Compra de dólares\n4. Venta de dólares\n5. Compra de bitcoin\n6. Venta de bitcoin\n7. Salir\n")
+    if opcion=="1":
+        for i, cuenta in enumerate(cuentas):
+            print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
+        opcion = int(input("¿De cual cuenta desea retirar dinero? "))
+        cuenta = cuentas[opcion-1]
+        print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
+    elif opcion=="2":
+        print("hola")
+    elif opcion=="3":
+        print("hola")
+    elif opcion=="4":
+        print("hola")
+    elif opcion=="5":
+        print("hola")
+    elif opcion=="6":
+        print("hola")
+    elif opcion=="7":
+        print("hola")
+
+
+
+
+with open("Registrar usuarios.txt", "r") as file:
+
+    
+    datosUsuario=file.readlines()
+    datosUsuario= [dato.strip() for dato in datosUsuario]
+        
 
         
+       
+    file.close()
     
+
+datosUsuario=[
+    {"nombre": "kevin", "cedula": "123456787"},
+    {"nombre": "laura", "cedula": "987654326"},
+    {"nombre": "Sebastian", "cedula": "567890129"}
+]
+
+def eliminarUsuario(cedula):
+    for registro in range(len(datosUsuario)):
+            if datosUsuario[registro]["cedula"] == cedula:
+                del datosUsuario[registro]
+                print("Usuario eliminado")
+                return True
+    print("Usuario no encontrado")
+    return False
+
+
 def configAvanzada():
     intentos=0
     
@@ -191,7 +241,7 @@ def configAvanzada():
     while True:
         opcion=input("1-Eliminar usuario\n2-Modificar tipos de cambio\n3-salir\n")
         if opcion=="1":
-            print("hola")
+            eliminarUsuario()
         elif opcion=="2":
             print("Que tipo de cambio desea modificar?\n")
     
@@ -208,7 +258,7 @@ while True:
         opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir\n"))
         while True:
             if opcion=="1":
-                cuentasDisponibles()
+                retirarDinero()
             elif opcion=="2":
                 print("deposito")
             elif opcion=="3":
@@ -216,9 +266,12 @@ while True:
             elif opcion=="4":
                 print("pagar servicios")
             elif opcion=="5":
-                print("compra")
+                divisas()
             elif opcion=="6":
-                eliminarUsuario()
+                pinEliminar()
+                cedula=input("ingrese su cedula:\n")
+                eliminarUsuario(cedula)
+                print(datosUsuario)
             elif opcion=="7":
                 print("ha salido del sistema")
                 break
