@@ -155,17 +155,12 @@ def deposito():
 
 def pagar_servicios():
     servicios = {"Electricidad": True,"Agua": False,"Telefonía": True,"Internet": False,"Impuestos": True,"Colegios Profesionales": False,"Tarjeta de crédito": True}
-    precios = {"Electricidad": 15000,"Agua": 10000,"Telefonía": 20000,"Internet": 25000,"Impuestos": 5000,"Colegios Profesionales": 15000,"Tarjeta de crédito": 30000}
-    # Definir los tipos de monedas y su tasa de cambio
+    precio = {"Electricidad": 15000,"Agua": 10000,"Telefonía": 20000,"Internet": 25000,"Impuestos": 5000,"Colegios Profesionales": 15000,"Tarjeta de crédito": 30000}
     monedas = {"colones": 1,"dólares": 550,"bitcoin": 15000000}
 
-# Definir la función para realizar el pago
-def pagar_servicio(servicio, cuenta):
-    # Verificar si el servicio está activo
-    if servicios[servicio]:
-        # Obtener el precio del servicio
-        precio = precios[servicio]
-        # Mostrar el precio del servicio
+def pagar_servicios(servicio, cuenta, monedas):
+    if pagar_servicios[servicio]:
+        precio = pagar_servicios[precio]
         print("El precio del servicio de", servicio, "es de", precio, "colones.")
         # Pedir al usuario que seleccione la moneda de su cuenta
         moneda = input("Seleccione la moneda de su cuenta (colones, dólares o bitcoin): ")
@@ -197,10 +192,10 @@ def pagar_servicio(servicio, cuenta):
 def menu_servicios(cuenta):
     while True:
         print("Seleccione el servicio que desea pagar:")
-        for servicio in servicios:
+        for servicio in servicio:
             print("-", servicio)
         servicio = input("Servicio: ")
-        cuenta = pagar_servicio(servicio, cuenta)
+        cuenta = pagar_servicios(servicio, cuenta)
         opcion = input("¿Desea pagar otro servicio? (S/N): ")
         if opcion.lower() == "n":
             break
@@ -276,8 +271,8 @@ while True:
                 verSaldo()
             elif opcion=="4":
                 pagar_servicios()
-                pagar_servicio(servicio, cuenta)
-                menu_servicios(cuenta)
+                pagar_servicios(menu_servicios, cuentas)
+                menu_servicios(cuentas)
             elif opcion=="5":
                 print("compra")
             elif opcion=="6":
