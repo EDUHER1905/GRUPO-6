@@ -157,17 +157,14 @@ def pagar_servicios():
     servicios = {"Electricidad": True,"Agua": False,"Telefonía": True,"Internet": False,"Impuestos": True,"Colegios Profesionales": False,"Tarjeta de crédito": True}
     precio = {"Electricidad": 15000,"Agua": 10000,"Telefonía": 20000,"Internet": 25000,"Impuestos": 5000,"Colegios Profesionales": 15000,"Tarjeta de crédito": 30000}
     monedas = {"colones": 1,"dólares": 550,"bitcoin": 15000000}
-
-def pagar_servicios(servicio, cuenta, monedas):
-    if pagar_servicios[servicio]:
+    if pagar_servicios(servicios):
         precio = pagar_servicios[precio]
-        print("El precio del servicio de", servicio, "es de", precio, "colones.")
-        # Pedir al usuario que seleccione la moneda de su cuenta
+        print("El precio del servicio de", servicios, "es de", precio, "colones.")
         moneda = input("Seleccione la moneda de su cuenta (colones, dólares o bitcoin): ")
         # Verificar que la moneda seleccionada sea válida
-        if moneda in monedas:
+        if moneda in moneda:
             # Obtener la tasa de cambio de la moneda seleccionada
-            tasa_cambio = monedas[moneda]
+            tasa_cambio = moneda[moneda]
             # Pedir al usuario que ingrese el monto a debitar
             monto = float(input("Ingrese el monto a debitar en " + moneda + ": "))
             # Convertir el monto a colones si es necesario
@@ -186,40 +183,19 @@ def pagar_servicios(servicio, cuenta, monedas):
         else:
             print("La moneda seleccionada no es válida.")
     else:
-        print("El servicio de", servicio, "no está activo.")
-
-# Definir la función para desplegar el menú de servicios
-def menu_servicios(cuenta):
+        print("El servicio de", servicios, "no está activo.")
+def menu_servicios(cuentas):
     while True:
         print("Seleccione el servicio que desea pagar:")
         for servicio in servicio:
             print("-", servicio)
         servicio = input("Servicio: ")
-        cuenta = pagar_servicios(servicio, cuenta)
+        cuenta = pagar_servicios(servicio, cuentas)
         opcion = input("¿Desea pagar otro servicio? (S/N): ")
         if opcion.lower() == "n":
             break
-    return cuenta
-
-
-
-
-
-
-
-
-    
-
-    
-    
-        
-
-
-
-        
-   
-
-        
+    return cuentas
+      
     
 def configAvanzada():
     intentos=0
