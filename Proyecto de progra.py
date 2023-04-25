@@ -88,22 +88,23 @@ def usuarioRegistrado():
     file.close()
     print(cuentas)
     
-cuentas = [
-    {'cedula': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
-    {'cedula': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
-    {'cedula': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
-]
+
 
 def retirarDinero():
+    cuentas = [
+    {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+    {'cuenta': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
+    {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+]
     
     for i, cuenta in enumerate(cuentas):
-        print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
+        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
 
 
     opcion = int(input("¿De cual cuenta desea retirar dinero? "))
     cuenta = cuentas[opcion-1]
 
-    print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
+    print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
     monto = float(input("¿Cuanto dinero desea retirar? "))
 
     for i in range(3):
@@ -112,18 +113,23 @@ def retirarDinero():
             monto = float(input(f"Intente de nuevo ({i+1}/3): "))
         else:
             cuenta['saldo'] -= monto
-            print(f"Se retiraron {monto} {cuenta['moneda']} de la cuenta {cuenta['cedula']}.")
+            print(f"Se retiraron {monto} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
             break
     else:
         print("Ha excedido el número máximo de intentos. Regresando al menú principal...")
 
 def verSaldo():
+    cuentas = [
+    {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+    {'cuenta': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
+    {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+]
     for i, cuenta in enumerate(cuentas):
-        print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
+        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
     opcion = int(input("¿ cual cuenta desea ver? "))
     cuenta = cuentas[opcion-1]
-    print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
+    print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
         
 
    
@@ -163,27 +169,239 @@ def pinEliminar():
     
     
 def divisas():
-    
+    compraDolar=525.50
+    ventaDolar=539.00
+    compraColones=570.22
+    ventaColones=601.04
+    bitcoin=0.0000069
+        
+
+
+    cuentas = [
+        {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+        {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
+        {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+    ]
+        
     opcion=input("¿Qué operación desea realizar?\n1. Compra de colones\n2. Venta de colones\n3. Compra de dólares\n4. Venta de dólares\n5. Compra de bitcoin\n6. Venta de bitcoin\n7. Salir\n")
     if opcion=="1":
-        for i, cuenta in enumerate(cuentas):
-            print(f"{i+1}. {cuenta['cedula']} ({cuenta['moneda']})")
-        opcion = int(input("¿De cual cuenta desea retirar dinero? "))
-        cuenta = cuentas[opcion-1]
-        print(f"El saldo actual de la cuenta {cuenta['cedula']} es {cuenta['saldo']} {cuenta['moneda']}")
-    elif opcion=="2":
-        print("hola")
-    elif opcion=="3":
-        print("hola")
-    elif opcion=="4":
-        print("hola")
-    elif opcion=="5":
-        print("hola")
-    elif opcion=="6":
-        print("hola")
-    elif opcion=="7":
-        print("hola")
+        #compra de dolares
+            cuentas = [
+                    {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
+                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+            ]
+            for i, cuenta in enumerate(cuentas):
+                print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+            opcion1 = int(input("¿De cual cuenta desea comprar colones? "))
+            cuenta = cuentas[opcion1-1]
+            if opcion1==1:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=int(input(f"Cuantos dolares desea cambiar a colones?\n"))
+                if cantidad > cuenta['saldo']:
+                        print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*compraColones
+                    print(f"Se compraron {total} colones\n")
 
+
+            if opcion1==2:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=float(input(f"Cuantos bitcoins desea cambiar a colones?\n"))
+                if cantidad > cuenta['saldo']:
+                        print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*compraColones
+                    print(f"Se compraron {total} colones\n")
+
+        
+        
+
+                
+    elif opcion=="2":
+        #venta de colones
+        cuentas = [
+                    {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
+                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+            ]
+        for i, cuenta in enumerate(cuentas):
+                        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+        opcion1 = int(input("¿a que cuenta iran los fondos? "))
+        cuenta = cuentas[opcion1-1]
+        if opcion1==1:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=int(input(f"Cuantos colones desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*ventaColones
+                            print(f"Se vendieron {total} colones\n")
+        if opcion1==2:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=float(input(f"Cuantos colones desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*ventaColones
+                            print(f"Se vendieron {total} colones\n")        
+
+
+    #Compra de dolares
+    elif opcion=="3":
+            cuentas = [
+                {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+            ]
+            for i, cuenta in enumerate(cuentas):
+                print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+            opcion1 = int(input("¿De cual cuenta desea comprar dolares? "))
+            cuenta = cuentas[opcion1-1]
+            if opcion1==1:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=int(input(f"Cuantos colones desea cambia a dolares?\n"))
+                if cantidad > cuenta['saldo']:
+                        print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*compraDolar
+                    print(f"Se compraron {total} dolares\n")
+
+
+            if opcion1==2:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=int(input(f"Cuantos bitcoins desea cambia a dolares?\n"))
+                if cantidad > cuenta['saldo']:
+                    print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*compraDolar
+                    print(f"Se compraron {total} dolares\n")
+
+    #venta de dolares
+    elif opcion=="4":
+            cuentas = [
+                {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+            ]
+            for i, cuenta in enumerate(cuentas):
+                        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+            opcion1 = int(input("¿a que cuenta iran los fondos? "))
+            cuenta = cuentas[opcion1-1]
+            if opcion1==1:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=int(input(f"Cuantos dolares desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*ventaDolar
+                            print(f"Se vendieron {total} dolares\n")
+            if opcion1==2:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=float(input(f"Cuantos dolares desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*ventaDolar
+                            print(f"Se vendieron {total} dolares\n")
+            
+            
+
+
+
+
+
+
+    #compra de bitcoin
+    elif opcion=="5":
+            cuentas = [
+            {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+            {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
+            ]
+            for i, cuenta in enumerate(cuentas):
+                print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+            opcion1 = int(input("¿De cual cuenta desea comprar bitcoin? "))
+            cuenta = cuentas[opcion1-1]
+            if opcion1==1:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=int(input(f"Cuantos colones desea cambia a bitcoin?\n"))
+                if cantidad > cuenta['saldo']:
+                        print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*bitcoin
+                    print(f"Se compraron {total} bitcoin\n")
+
+
+            if opcion1==2:
+                print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                cantidad=int(input(f"Cuantos dolares desea cambiar a bitcoin?\n"))
+                if cantidad > cuenta['saldo']:
+                    print("El monto solicitado es mayor al saldo actual.")
+                else:
+                    cuenta['saldo'] -= cantidad
+                    print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                    print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                    total=cantidad*bitcoin
+                    print(f"Se compraron {total} bitcoin\n")
+            
+    #venta bitcoin
+    elif opcion=="6":
+            cuentas = [
+            {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+            {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
+            ]
+            for i, cuenta in enumerate(cuentas):
+                        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+            opcion1 = int(input("¿a que cuenta iran los fondos? "))
+            cuenta = cuentas[opcion1-1]
+            if opcion1==1:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=int(input(f"Cuantos bitcoins desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*bitcoin
+                            print(f"Se vendieron {total} bitcoins\n")
+            if opcion1==2:
+                        print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+                        cantidad=float(input(f"Cuantos bicoins desea vender?\n"))
+                        if cantidad > cuenta['saldo']:
+                                print("El monto solicitado es mayor al saldo actual.")
+                        else:
+                            cuenta['saldo'] -= cantidad
+                            print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+                            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+                            total=cantidad*bitcoin
+                            print(f"Se vendieron {total} bitcoins\n")
+            
+    elif opcion=="7":
+            print("Saliendo...")
 
 
 
