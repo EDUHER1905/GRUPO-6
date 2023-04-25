@@ -119,6 +119,34 @@ def retirarDinero():
     else:
         print("Ha excedido el número máximo de intentos. Regresando al menú principal...")
 
+
+    
+
+def mostrarMenu():
+  print("¿Qué tipo de cambio desea modificar?")
+  print("1. Compra de colones")
+  print("2. Venta de colones")
+  print("3. Compra de dólares")
+  print("4. Venta de dólares")
+  print("5. Compra de bitcoin")
+  print("6. Venta de bitcoin")
+  print("7. Salir")
+
+  opcion = input("Ingrese el número de la opción deseada: ")
+  return opcion    
+
+print("El archivo ha sido actualizado exitosamente.")
+
+
+def modificarMoneda():
+    archivo = open("registrar usuarios.txt", "r")
+    conversiones = {}
+    for linea in archivo:
+         linea = linea.strip()
+         llave, valor = linea.split(":")
+         conversiones[llave] = float(valor)
+         archivo.close()
+
 def verSaldo():
     cuentas = [
     {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
@@ -166,8 +194,77 @@ def pinEliminar():
             break
         else:
             print("El PIN no es igual,Intente de nuevo")
-    
-    
+
+def depositar():
+    with open('cuenta.txt', 'r') as file:
+          cuenta, saldo = file.readline().strip().split(',')
+          montodeposito = float(input('Ingrese el monto del depósito: '))
+          nuevosaldo = float(saldo) + montodeposito
+    with open('cuenta.txt', 'w') as file:
+     file.write(f'{"cuenta"},{"nuevosaldo"}')
+    print(f'Se ha realizado un depósito de ${"montodeposito"}. Su saldo actual es de ${"nuevosaldo"}.')            
+
+def pagoServicios():
+    saldoColones = 100000
+    saldoDolares = 1000
+    saldoBitcoin = 0.01
+    serviciosActivos = {
+            'Electricidad': True,
+            'Agua': False,
+            'Telefonía': True,
+            'Internet': True,
+            'Impuestos': False,
+            'Colegios Profesionales': False,
+            'Tarjeta de crédito': True
+        }
+    preciosServicios  = {
+            'Electricidad': {
+                'colones': 20000,
+                'dolares': 40,
+                'bitcoin': 0.004
+            },
+            'Agua': {
+                'colones': 15000,
+                'dolares': 30,
+                'bitcoin': 0.003
+            },
+            'Telefonía': {
+                'colones': 10000,
+                'dolares': 20,
+                'bitcoin': 0.002
+            },
+            'Internet': {
+                'colones': 25000,
+                'dolares': 50,
+                'bitcoin': 0.005
+            },
+            'Impuestos': {
+                'colones': 50000,
+                'dolares': 100,
+                'bitcoin': 0.01
+            },
+            'Colegios Profesionales': {
+                'colones': 75000,
+                'dolares': 150,
+                'bitcoin': 0.015
+            },
+            'Tarjeta de crédito': {
+                'colones': 30000,
+                'dolares': 60,
+                'bitcoin': 0.006
+            }
+        }
+    tiposCuenta = ['colones', 'dolares', 'bitcoin']
+    valorReferenciaDolares = 550  
+    valorReferenciaBitcoin = 50000  
+
+def menuServicios():
+    print('Seleccione un servicio:')
+    for servicio, activo in serviciosActivos.items():
+            if activo:
+                print(f'- {servicio}')
+    servicioSeleccionado = input('Servicio: ') 
+
 def divisas():
     compraDolar=525.50
     ventaDolar=539.00
@@ -200,6 +297,11 @@ def divisas():
                 if cantidad > cuenta['saldo']:
                         print("El monto solicitado es mayor al saldo actual.")
                 else:
+                    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                     cuenta['saldo'] -= cantidad
                     print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
@@ -261,7 +363,7 @@ def divisas():
                             total=cantidad*ventaColones
                             print(f"Se vendieron {total} colones\n")
                             resultadoFinal=cuentas[1][1]-total
-                            print(f"Su cuenta en dolares quedo con {resultadoFinal} colones")
+                            print(f"Su cuenta en colones quedo con {resultadoFinal} colones")
         elif opcion1==2:
                         cuentas = [ ['cuenta', 'saldo', 'moneda'],
                             ['Colones', 500000, 'CRC'],
@@ -279,7 +381,7 @@ def divisas():
                             total=cantidad*ventaColones
                             print(f"Se vendieron {total} colones\n")
                             resultadoFinal=cuentas[1][1]-total
-                            print(f"Su cuenta en dolares quedo con {resultadoFinal} colones")        
+                            print(f"Su cuenta en colones quedo con {resultadoFinal} colones")        
 
 
     #Compra de dolares
@@ -298,11 +400,18 @@ def divisas():
                 if cantidad > cuenta['saldo']:
                         print("El monto solicitado es mayor al saldo actual.")
                 else:
+                    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                     cuenta['saldo'] -= cantidad
                     print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*compraDolar
                     print(f"Se compraron {total} dolares\n")
+                    resultadoFinal=cuentas[2][1]+total
+                    print(f"Su cuenta en dolares quedo con {resultadoFinal} dolares")
 
 
             if opcion1==2:
@@ -311,11 +420,18 @@ def divisas():
                 if cantidad > cuenta['saldo']:
                     print("El monto solicitado es mayor al saldo actual.")
                 else:
+                    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                     cuenta['saldo'] -= cantidad
                     print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*compraDolar
                     print(f"Se compraron {total} dolares\n")
+                    resultadoFinal=cuentas[2][1]+total
+                    print(f"Su cuenta en dolares quedo con {resultadoFinal} dolares")
 
     #venta de dolares
     elif opcion=="4":
@@ -333,12 +449,24 @@ def divisas():
                         if cantidad > cuenta['saldo']:
                                 print("El monto solicitado es mayor al saldo actual.")
                         else:
+                            cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                            ['Colones', 500000, 'CRC'],
+                            ['Dólares', 10000, 'USD'],
+                            ['Bitcoin', 29103223, 'BTC']
+                            ]
                             cuenta['saldo'] -= cantidad
                             print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*ventaDolar
                             print(f"Se vendieron {total} dolares\n")
+                            resultadoFinal=cuentas[2][1]-total
+                            print(f"Su cuenta en dolares quedo con {resultadoFinal} dolares")
             if opcion1==2:
+                        cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                         print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
                         cantidad=float(input(f"Cuantos dolares desea vender?\n"))
                         if cantidad > cuenta['saldo']:
@@ -349,6 +477,8 @@ def divisas():
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*ventaDolar
                             print(f"Se vendieron {total} dolares\n")
+                            resultadoFinal=cuentas[2][1]-total
+                            print(f"Su cuenta en dolares quedo con {resultadoFinal} dolares")
             
             
 
@@ -373,11 +503,18 @@ def divisas():
                 if cantidad > cuenta['saldo']:
                         print("El monto solicitado es mayor al saldo actual.")
                 else:
+                    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                     cuenta['saldo'] -= cantidad
                     print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*bitcoin
                     print(f"Se compraron {total} bitcoin\n")
+                    resultadoFinal=cuentas[3][1]+total
+                    print(f"Su cuenta en bitcoin quedo con {resultadoFinal} bitcoin")
 
 
             if opcion1==2:
@@ -386,11 +523,18 @@ def divisas():
                 if cantidad > cuenta['saldo']:
                     print("El monto solicitado es mayor al saldo actual.")
                 else:
+                    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                     cuenta['saldo'] -= cantidad
                     print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*bitcoin
                     print(f"Se compraron {total} bitcoin\n")
+                    resultadoFinal=cuentas[3][1]+total
+                    print(f"Su cuenta en bitcoin quedo con {resultadoFinal} bitcoin")
             
     #venta bitcoin
     elif opcion=="6":
@@ -408,26 +552,77 @@ def divisas():
                         if cantidad > cuenta['saldo']:
                                 print("El monto solicitado es mayor al saldo actual.")
                         else:
+                            cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                            ['Colones', 500000, 'CRC'],
+                            ['Dólares', 10000, 'USD'],
+                            ['Bitcoin', 29103223, 'BTC']
+                            ]
                             cuenta['saldo'] -= cantidad
                             print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*bitcoin
                             print(f"Se vendieron {total} bitcoins\n")
+                            resultadoFinal=cuentas[3][1]-total
+                            print(f"Su cuenta en bitcoin quedo con {resultadoFinal} bitcoin")
             if opcion1==2:
                         print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
                         cantidad=float(input(f"Cuantos bicoins desea vender?\n"))
                         if cantidad > cuenta['saldo']:
                                 print("El monto solicitado es mayor al saldo actual.")
                         else:
+                            cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                            ['Colones', 500000, 'CRC'],
+                            ['Dólares', 10000, 'USD'],
+                            ['Bitcoin', 29103223, 'BTC']
+                            ]
                             cuenta['saldo'] -= cantidad
                             print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*bitcoin
                             print(f"Se vendieron {total} bitcoins\n")
+                            resultadoFinal=cuentas[3][1]-total
+                            print(f"Su cuenta en bitcoin quedo con {resultadoFinal} bitcoin")
             
     elif opcion=="7":
             print("Saliendo...")
 
+def modificarConversion(opcion):
+  if opcion == "1":
+    llave = "colon_compra"
+    conversion = input("Ingrese el nuevo factor de conversión para compra de colones: ")
+  elif opcion == "2":
+    llave = "colon_venta"
+    conversion = input("Ingrese el nuevo factor de conversión para venta de colones: ")
+  elif opcion == "3":
+    llave = "dolar_compra"
+    conversion = input("Ingrese el nuevo factor de conversión para compra de dólares: ")
+  elif opcion == "4":
+    llave = "dolar_venta"
+    conversion = input("Ingrese el nuevo factor de conversión para venta de dólares: ")
+  elif opcion == "5":
+    llave = "bitcoin_compra"
+    conversion = input("Ingrese el nuevo factor de conversión para compra de bitcoin: ")
+  elif opcion == "6":
+    llave = "bitcoin_venta"
+    conversion = input("Ingrese el nuevo factor de conversión para venta de bitcoin: ")
+
+    opcion = mostrarMenu()
+
+    while opcion != "7":
+        if modificarConversion(opcion):
+            print("El factor de conversión ha sido actualizado exitosamente.")
+        else:
+            print("Opción inválida. Por favor ingrese un número del 1 al 7.")
+        opcion = mostrarMenu()
+
+    archivo = open("conversiones.txt", "w")
+    for llave, valor in ConnectionResetError.items():
+        archivo.write(llave + ":" + str(valor) + "\n")
+
+        archivo.close()
+
+    print("El archivo ha sido actualizado exitosamente.")
+    
 
 
 with open("Registrar usuarios.txt", "r") as file:
@@ -442,21 +637,26 @@ with open("Registrar usuarios.txt", "r") as file:
     file.close()
     
 
-datosUsuario=[
-    {"nombre": "kevin", "cedula": "123456787"},
-    {"nombre": "laura", "cedula": "987654326"},
-    {"nombre": "Sebastian", "cedula": "567890129"}
+
+
+
+
+        
+
+
+datosUsuario=[    ['kevin', '123456787'],
+    ['laura', '987654326'],
+    ['Sebastian', '567890129']
 ]
 
 def eliminarUsuario(cedula):
     for registro in range(len(datosUsuario)):
-            if datosUsuario[registro]["cedula"] == cedula:
+            if datosUsuario[registro][1] == cedula:
                 del datosUsuario[registro]
                 print("Usuario eliminado")
                 return True
     print("Usuario no encontrado")
     return False
-
 
 def configAvanzada():
     intentos=0
@@ -484,30 +684,37 @@ def configAvanzada():
     while True:
         opcion=input("1-Eliminar usuario\n2-Modificar tipos de cambio\n3-salir\n")
         if opcion=="1":
-            eliminarUsuario()
+            cedula=input("ingrese su cedula:\n")
+            eliminarUsuario(cedula)
+            print(datosUsuario)
         elif opcion=="2":
-            print("Que tipo de cambio desea modificar?\n")
+            modificarMoneda()
+            mostrarMenu()
+            modificarConversion(opcion)
+
+
+
     
 
         
 
 #----------PROGRAMA PRINCIPAL-------------
 print("Bienvenido a nuestro banco, que desea?")
-menu=input("1-Registrar Usuario nuevo\n2-Usuario Registrado\n3-Configuracion Avanzada\n4-Salir\n")
 while True:
+    menu=input("1-Registrar Usuario nuevo\n2-Usuario Registrado\n3-Configuracion Avanzada\n4-Salir\n")
     if menu=="1":
         usuarioNuevo()   
     elif menu=="2":
-        opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir\n"))
         while True:
+            opcion=(input("1-Retirar dinero\n2-Depositar dinero\n3-Ver saldo actual\n4-Pagar servicios\n5-Compra/Venta de divisas\n6-Eliminar usuario\n7-Salir\n"))
             if opcion=="1":
                 retirarDinero()
             elif opcion=="2":
-                print("deposito")
+                depositar()
             elif opcion=="3":
                 verSaldo()
             elif opcion=="4":
-                print("pagar servicios")
+                pagoServicios()
             elif opcion=="5":
                 divisas()
             elif opcion=="6":
@@ -518,11 +725,12 @@ while True:
             elif opcion=="7":
                 print("ha salido del sistema")
                 break
-            break 
+            else:
+                print("Opcion incorrecta intente de nuevo")
     elif menu=="3":
          configAvanzada()
     elif menu=="4":
         print("Gracias por preferirnos")
         break
     else:
-        print("Opcion incorrecta intente de nuevo")
+        print("ERROR INTENTE DE NUEVO")
