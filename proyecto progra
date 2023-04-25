@@ -1,4 +1,7 @@
+from collections import defaultdict
 import getpass
+
+from Proyecto defaultdict progra import cuentasDisponibles
 registroUsuario="Registrar usuarios.txt","a+"
 def usuarioNuevo():
     file=open("Registrar usuarios.txt","a+")
@@ -126,9 +129,8 @@ def depositar():
           montodeposito = float(input('Ingrese el monto del depósito: '))
           nuevosaldo = float(saldo) + montodeposito
 with open('cuenta.txt', 'w') as file:
-     file.write(f'{"cuenta"},{"nuevosaldo"}')
-print(f'Se ha realizado un depósito de ${"montodeposito"}. Su saldo actual es de ${"nuevosaldo"}.')
-
+     file.write(f'{cuentasDisponibles},{nuevo_saldo}')
+     print(f'Se ha realizado un depósito de ${monto_deposito}. Su saldo actual es de ${nuevo_saldo}.')
      
 
 def verSaldo():
@@ -504,7 +506,7 @@ def divisas():
 
 
 
-with open("Registrar usuarios.txt", "r") as file:
+with open("cuentas.txt", "r") as file:
 
     
     datosUsuario=file.readlines()
@@ -533,7 +535,7 @@ def eliminarUsuario(cedula):
 
 
 def modificar_moneda():
-    archivo = open("registrar usuarios.txt", "r")
+    archivo = open("cuenta.txt", "r")
     conversiones = {}
     for linea in archivo:
          linea = linea.strip()
