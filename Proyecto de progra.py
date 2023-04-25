@@ -177,10 +177,10 @@ def divisas():
         
 
 
-    cuentas = [
-        {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
-        {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
-        {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+    cuentas = [ ['cuenta', 'saldo', 'moneda'],
+            ['Colones', 500000, 'CRC'],
+            ['Dólares', 10000, 'USD'],
+            ['Bitcoin', 29103223, 'BTC']
     ]
         
     opcion=input("¿Qué operación desea realizar?\n1. Compra de colones\n2. Venta de colones\n3. Compra de dólares\n4. Venta de dólares\n5. Compra de bitcoin\n6. Venta de bitcoin\n7. Salir\n")
@@ -188,7 +188,7 @@ def divisas():
         #compra de dolares
             cuentas = [
                     {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
-                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+                {'cuenta': 'Bitcoin', 'saldo': 29103223, 'moneda': 'BTC'}
             ]
             for i, cuenta in enumerate(cuentas):
                 print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
@@ -205,9 +205,17 @@ def divisas():
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*compraColones
                     print(f"Se compraron {total} colones\n")
+                    resultadoFinal=cuentas[1][1]+total
+                    print(f"Su cuenta en colones quedo con {resultadoFinal} colones")
+                
 
 
-            if opcion1==2:
+            elif opcion1==2:
+                cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                        ['Colones', 500000, 'CRC'],
+                        ['Dólares', 10000, 'USD'],
+                        ['Bitcoin', 29103223, 'BTC']
+                        ]
                 print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
                 cantidad=float(input(f"Cuantos bitcoins desea cambiar a colones?\n"))
                 if cantidad > cuenta['saldo']:
@@ -218,6 +226,9 @@ def divisas():
                     print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                     total=cantidad*compraColones
                     print(f"Se compraron {total} colones\n")
+                    resultadoFinal=cuentas[1][1]+total
+                    print(f"Su cuenta en colones quedo con {resultadoFinal} colones")
+
 
         
         
@@ -227,7 +238,7 @@ def divisas():
         #venta de colones
         cuentas = [
                     {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
-                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+                {'cuenta': 'Bitcoin', 'saldo': 29103223, 'moneda': 'BTC'}
             ]
         for i, cuenta in enumerate(cuentas):
                         print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
@@ -239,12 +250,24 @@ def divisas():
                         if cantidad > cuenta['saldo']:
                                 print("El monto solicitado es mayor al saldo actual.")
                         else:
+                            cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                            ['Colones', 500000, 'CRC'],
+                            ['Dólares', 10000, 'USD'],
+                            ['Bitcoin', 29103223, 'BTC']
+                            ]
                             cuenta['saldo'] -= cantidad
                             print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*ventaColones
                             print(f"Se vendieron {total} colones\n")
-        if opcion1==2:
+                            resultadoFinal=cuentas[1][1]-total
+                            print(f"Su cuenta en dolares quedo con {resultadoFinal} colones")
+        elif opcion1==2:
+                        cuentas = [ ['cuenta', 'saldo', 'moneda'],
+                            ['Colones', 500000, 'CRC'],
+                            ['Dólares', 10000, 'USD'],
+                            ['Bitcoin', 29103223, 'BTC']
+                            ]
                         print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
                         cantidad=float(input(f"Cuantos colones desea vender?\n"))
                         if cantidad > cuenta['saldo']:
@@ -254,14 +277,16 @@ def divisas():
                             print(f"Se retiraron {cantidad} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
                             print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
                             total=cantidad*ventaColones
-                            print(f"Se vendieron {total} colones\n")        
+                            print(f"Se vendieron {total} colones\n")
+                            resultadoFinal=cuentas[1][1]-total
+                            print(f"Su cuenta en dolares quedo con {resultadoFinal} colones")        
 
 
     #Compra de dolares
     elif opcion=="3":
             cuentas = [
                 {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
-                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+                {'cuenta': 'Bitcoin', 'saldo': 29103223, 'moneda': 'BTC'}
             ]
             for i, cuenta in enumerate(cuentas):
                 print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
@@ -296,7 +321,7 @@ def divisas():
     elif opcion=="4":
             cuentas = [
                 {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
-                {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+                {'cuenta': 'Bitcoin', 'saldo': 29103223, 'moneda': 'BTC'}
             ]
             for i, cuenta in enumerate(cuentas):
                         print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
@@ -501,6 +526,3 @@ while True:
         break
     else:
         print("Opcion incorrecta intente de nuevo")
-
-
-    
