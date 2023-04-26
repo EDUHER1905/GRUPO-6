@@ -1,9 +1,10 @@
 import getpass
+import os
 registroUsuario="Registrar usuarios.txt","a+"
 def usuarioNuevo():
     file=open("Registrar usuarios.txt","a+")
     intentos=0
-    max_intentos=3
+    maxIntentos=3
     while intentos<3 :
     
         cedula = input("Ingrese su cédula de identidad (debe tener 9 dígitos): ")
@@ -52,7 +53,7 @@ def usuarioNuevo():
                 while True:
                     dolares=float(input("Ingrese su monto en dolares(Tiene que ser equivalente a 100.000 Colones):\n"))
                     cambio=dolares*tipoCambioDolar
-                    if cambio>=100000:
+                    if cambio>=100.000:
                         print("Monto correcto")
                         break
                     else:
@@ -69,7 +70,7 @@ def usuarioNuevo():
                         print("Monto equivocado,no cumple con el minimo de 100 000 Colones")
                 break
             break
-    file.write("Cedula: {} , Nombre: {} , saldo: {} \n".format(cedula,nombre,colones))
+    file.write("Cedula: {} , Nombre: {}  \n".format(cedula,nombre))
     file.close()
 
 
@@ -152,7 +153,7 @@ def verSaldo():
     {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
     {'cuenta': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
     {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
-]
+    ]
     for i, cuenta in enumerate(cuentas):
         print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
     opcion = int(input("¿ cual cuenta desea ver? "))
@@ -173,8 +174,7 @@ def verSaldo():
         
        
         file.close()
-        print("datos usuarios")
-        print(datosUsuario)    
+            
  
 def pinEliminar():
     while True:
@@ -196,18 +196,38 @@ def pinEliminar():
             print("El PIN no es igual,Intente de nuevo")
 
 def depositar():
-    with open('cuenta.txt', 'r') as file:
-          cuenta, saldo = file.readline().strip().split(',')
-          montodeposito = float(input('Ingrese el monto del depósito: '))
-          nuevosaldo = float(saldo) + montodeposito
-    with open('cuenta.txt', 'w') as file:
-     file.write(f'{"cuenta"},{"nuevosaldo"}')
-    print(f'Se ha realizado un depósito de ${"montodeposito"}. Su saldo actual es de ${"nuevosaldo"}.')            
+    cuentas = [
+    {'cuenta': 'Colones', 'saldo': 500000, 'moneda': 'CRC'},
+    {'cuenta': 'Dólares', 'saldo': 1000, 'moneda': 'USD'},
+    {'cuenta': 'Bitcoin', 'saldo': 2, 'moneda': 'BTC'}
+]
+    
+    for i, cuenta in enumerate(cuentas):
+        print(f"{i+1}. {cuenta['cuenta']} ({cuenta['moneda']})")
+
+
+    opcion = int(input("¿En cual cuenta desea depositar? "))
+    cuenta = cuentas[opcion-1]
+
+    print(f"El saldo actual de la cuenta {cuenta['cuenta']} es {cuenta['saldo']} {cuenta['moneda']}")
+    monto = float(input("¿Cuanto dinero desea depositar? "))
+
+    for i in range(3):
+        if monto > cuenta['saldo']:
+            print("El monto solicitado es mayor al saldo actual.")
+            monto = float(input(f"Intente de nuevo ({i+1}/3): "))
+        else:
+            cuenta['saldo'] += monto
+            print(f"Se depositaron1 {monto} {cuenta['moneda']} de la cuenta {cuenta['cuenta']}.")
+            print(f"El saldo actual de la cuenta es {cuenta['saldo']} {cuenta['moneda']}.")
+            break
+    else:
+        print("Ha excedido el número máximo de intentos. Regresando al menú principal...")
 
 def pagoServicios():
     saldoColones = 100000
     saldoDolares = 1000
-    saldoBitcoin = 0.01
+    saldoBitcoin = 2
     serviciosActivos = {
             'Electricidad': True,
             'Agua': False,
@@ -258,12 +278,28 @@ def pagoServicios():
     valorReferenciaDolares = 550  
     valorReferenciaBitcoin = 50000  
 
-def menuServicios():
-    print('Seleccione un servicio:')
-    for servicio, activo in serviciosActivos.items():
-            if activo:
-                print(f'- {servicio}')
-    servicioSeleccionado = input('Servicio: ') 
+    while True:
+        opcion=input("Selecione un servicio:\n1-Electricidad\n2-Telefonía\n3-Internet\n4- Tarjeta de crédito\n")
+        if opcion=="1":
+            resulado=saldoColones-20000
+            print(f"Se le rebajaron {20000} colones de Electricidad")
+            print(f"Su cuenta quedo en {resulado}")
+        elif opcion=="2":
+                resulado=saldoColones-15000
+                print(f"Se le rebajaron {15000} colones de Telefonía")
+                print(f"Su cuenta quedo en {resulado}")
+        elif opcion=="3":
+                resulado=saldoColones-10000
+                print(f"Se le rebajaron {10000} colones de Internet")
+                print(f"Su cuenta quedo en {resulado}")
+        elif opcion=="3":
+                resulado=saldoColones-30000
+                print(f"Se le rebajaron {30000} colones de Tarjeta de crédito")
+                print(f"Su cuenta quedo en {resulado}")
+        
+        
+
+
 
 def divisas():
     compraDolar=525.50
@@ -282,7 +318,7 @@ def divisas():
         
     opcion=input("¿Qué operación desea realizar?\n1. Compra de colones\n2. Venta de colones\n3. Compra de dólares\n4. Venta de dólares\n5. Compra de bitcoin\n6. Venta de bitcoin\n7. Salir\n")
     if opcion=="1":
-        #compra de dolares
+        #compra de colones
             cuentas = [
                     {'cuenta': 'Dólares', 'saldo': 10000, 'moneda': 'USD'},
                 {'cuenta': 'Bitcoin', 'saldo': 29103223, 'moneda': 'BTC'}
@@ -308,6 +344,7 @@ def divisas():
                     total=cantidad*compraColones
                     print(f"Se compraron {total} colones\n")
                     resultadoFinal=cuentas[1][1]+total
+                    resultadoFinalDolar=cuentas[2][1]-total
                     print(f"Su cuenta en colones quedo con {resultadoFinal} colones")
                 
 
